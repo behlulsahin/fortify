@@ -23,7 +23,7 @@ def getProject( projectHeaders, projectName, projectVersion, projectURL ):
 	print "Connecting to "  + projectURL +  " ...............................\n"
 
 	try:
-		projectResponse = requests.request("GET", projectURL, headers=projectHeaders)
+		projectResponse = requests.request("GET", projectURL, headers=projectHeaders, verify=False)
 	except requests.exceptions.RequestException as e:
 		print e
 		print "-------------------------------------- \n"
@@ -66,7 +66,7 @@ def getProjectVersion( projectHeaders, baseURL, projectID, projectVersion, proje
 	projectVersionURL = baseURL + "projects/" + str(projectID) +  "/versions"
 	print "\nConnecting to "  + projectVersionURL +   " ...............................\n"
 	try:
-		projectVersionResponse = requests.request("GET", projectVersionURL, headers=projectHeaders)
+		projectVersionResponse = requests.request("GET", projectVersionURL, headers=projectHeaders, verify=False)
 	except requests.exceptions.RequestException as e:
 		print e
 		print "-------------------------------------- \n"
@@ -103,7 +103,7 @@ def createProject (projectName, projectVersion, projectHeaders ):
 
 	payload = "{\"project\":{\"name\":\"" + projectName + "\",\"description\":\"Created with SSC Client\",\"issueTemplateId\":\"Prioritized-HighRisk-Project-Template\",\"committed\": \"true\"},\"masterAttrGuid\":\"87f2364f-dcd4-49e6-861d-f8d3f351686b\",\"name\":\"" + projectVersion + "\",\"description\":\"Created with SSC Client\",\"issueTemplateId\":\"Prioritized-HighRisk-Project-Template\",\"owner\": \"SSC Client\",\"active\": \"true\",\"committed\": \"false\"}"
 	try:
-		response = requests.request("POST", url, data=payload, headers=projectHeaders)
+		response = requests.request("POST", url, data=payload, headers=projectHeaders, verify=False)
 	except requests.exceptions.RequestException as e:
 		print e
 		print "-------------------------------------- \n"
@@ -131,7 +131,7 @@ def createVersion( projectHeaders, projectID, projectVersion, projectName ):
 	payload = "{\n\t\"masterAttrGuid\":\"87f2364f-dcd4-49e6-861d-f8d3f351686b\",\n\t\"name\":\"" + projectVersion + "\",\n\t\"description\":\"Created with SSC Client\",\n\t\"issueTemplateId\":\"Prioritized-HighRisk-Project-Template\",\n\t\"owner\": \"SSC Client\",\n\t\"active\": \"true\",\n\t\"committed\": \"true\"\n}"
 	print "Creating project version by connecting to " +url
 	try:
-		response = requests.request("POST", url, data=payload, headers=projectHeaders)
+		response = requests.request("POST", url, data=payload, headers=projectHeaders, verify=False)
 	except requests.exceptions.RequestException as e:
 		print e
 		print "-------------------------------------- \n"
@@ -163,7 +163,7 @@ def updateProjectAttributes( projectHeaders, projectID, projectVersion, projectN
 	payload = "[\n\t{\n\t  \"guid\":\"DevPhase\",\n\t  \"attributeDefinitionId\":\"5\",\n\t  \"values\": [ \n\t\t\t\t  {\"guid\":\"Active\"} \n\t\t\t    ]\n\t},\n\t\t{\n\t\t\"guid\":\"Accessibility\",\n\t\t\"attributeDefinitionId\":\"7\",\n\t\t\"values\": [\n\t\t\t\t\t{\"guid\":\"externalpublicnetwork\"}\n\t\t\t\t  ]\n\t},\n\t{\n\t\t\"guid\":\"DevStrategy\",\n\t\t\"attributeDefinitionId\":\"6\",\n\t\t\"values\": [\n\t\t\t\t\t{\"guid\":\"Internal\"}\n\t\t\t\t  ]\n\t}\n\n]\n\t\n\t\n\t"
 
 	try:
-		response = requests.request("PUT", url, data=payload, headers=projectHeaders)
+		response = requests.request("PUT", url, data=payload, headers=projectHeaders, verify=False)
 	except requests.exceptions.RequestException as e:
 		print e
 		print "-------------------------------------- \n"
@@ -218,7 +218,7 @@ def main(argv):
 	print "\nConnecting to " +  authURL  + "\n"
 
 	try:
-		authResponse = requests.request("POST", authURL, headers=authHeaders)
+		authResponse = requests.request("POST", authURL, headers=authHeaders, verify=False)
 	except requests.exceptions.RequestException as e:
 		print e
 		print "-------------------------------------- \n"
